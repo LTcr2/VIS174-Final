@@ -1,0 +1,632 @@
+/* Adafruit Arduino - Lesson 5. Serial Monitor */
+
+int latchPin = 8;
+int clockPin = 12;
+int dataPin = 10;
+int buttonPin = 6;     // the number of the pushbutton pin
+int posX; // which shift register
+int posY; // the led in the columns
+String whichRegister;
+
+byte reg1 = 0;  // shift register 1
+byte reg2 = 0;  // shift register 2
+byte reg3 = 0;
+byte reg4 = 0;
+byte reg5 = 0;
+byte reg6 = 0;
+byte reg7 = 0;
+byte reg8 = 0;
+byte reg9 = 0;
+byte reg10 = 0; // shift register 10
+
+/*
+or we can do
+reg = 1
+reg = 2
+--
+reg = 10
+*/
+
+int led1 = 0;
+int clearButton = 0;         // variable for reading the pushbutton status
+
+void setup() {
+  pinMode(latchPin, OUTPUT);
+  pinMode(dataPin, OUTPUT);  
+  pinMode(clockPin, OUTPUT);
+  pinMode(buttonPin, INPUT);
+  updateShiftRegister();
+  Serial.begin(9600);
+  while (! Serial); // Wait untilSerial is ready - Leonardo
+  Serial.println("Enter LED Number 0 to 7 or 'x' to clear");
+}
+
+void loop() {
+
+  //****CLEAR BUTTON******
+  clearButton = digitalRead(buttonPin);
+  //Serial.println(digitalRead(buttonPin));
+  if (clearButton == HIGH) {
+    reg1 = 0;
+    reg2 = 0;
+    reg3 = 0;
+    reg4 = 0;
+    reg5 = 0;
+    reg6 = 0;
+    reg7 = 0;
+    reg8 = 0;
+    reg9 = 0;
+    reg10 = 0;
+    updateShiftRegister();
+    Serial.println("Cleared");
+  }
+  
+  
+  
+  //********X COORDINATE - CHOOSING SHIFT REGISTERS 1 THROUGH 10***********
+  Serial.println(analogRead(2));
+  posX = analogRead(2);
+  posY = analogRead(0);
+   
+  if(posX <= 100) {
+    if(posY <= 127) {
+    int led1 = 0;
+    bitSet(reg1, led1);
+    updateShiftRegister();
+    }
+    if(posY > 127 && posY < 255) {
+    int led1 = 1;
+    bitSet(reg1, led1);
+    updateShiftRegister();
+    }
+    if(posY > 255 && posY < 392) {
+    int led1 = 2;
+    bitSet(reg1, led1);
+    updateShiftRegister();
+    }
+    if(posY > 392 && posY < 519) {
+    int led1 = 3;
+    bitSet(reg1, led1);
+    updateShiftRegister();
+    }
+    if(posY > 519 && posY < 646) {
+    int led1 = 4;
+    bitSet(reg1, led1);
+    updateShiftRegister();
+    }
+    if(posY > 646 && posY < 773) {
+    int led1 = 5;
+    bitSet(reg1, led1);
+    updateShiftRegister();
+    }
+    if(posY > 773 && posY < 900) {
+    int led1 = 6;
+    bitSet(reg1, led1);
+    updateShiftRegister();
+    }
+    if(posY >=900) {
+    int led1 = 7;
+    bitSet(reg1, led1);
+    updateShiftRegister();
+    }
+    
+  }
+  if(posX > 100 && posX < 200) {
+    if(posY <= 127) {
+    int led1 = 0;
+    bitSet(reg2, led1);
+    updateShiftRegister();
+    }
+    if(posY > 127 && posY < 255) {
+    int led1 = 1;
+    bitSet(reg2, led1);
+    updateShiftRegister();
+    }
+    if(posY > 255 && posY < 392) {
+    int led1 = 2;
+    bitSet(reg2, led1);
+    updateShiftRegister();
+    }
+    if(posY > 392 && posY < 519) {
+    int led1 = 3;
+    bitSet(reg2, led1);
+    updateShiftRegister();
+    }
+    if(posY > 519 && posY < 646) {
+    int led1 = 4;
+    bitSet(reg2, led1);
+    updateShiftRegister();
+    }
+    if(posY > 646 && posY < 773) {
+    int led1 = 5;
+    bitSet(reg2, led1);
+    updateShiftRegister();
+    }
+    if(posY > 773 && posY < 900) {
+    int led1 = 6;
+    bitSet(reg2, led1);
+    updateShiftRegister();
+    }
+    if(posY >=900) {
+    int led1 = 7;
+    bitSet(reg2, led1);
+    updateShiftRegister();
+    }
+    
+  }
+  if(posX > 200 && posX < 300) {
+    if(posY <= 127) {
+    int led1 = 0;
+    bitSet(reg3, led1);
+    updateShiftRegister();
+    }
+    if(posY > 127 && posY < 255) {
+    int led1 = 1;
+    bitSet(reg3, led1);
+    updateShiftRegister();
+    }
+    if(posY > 255 && posY < 392) {
+    int led1 = 2;
+    bitSet(reg3, led1);
+    updateShiftRegister();
+    }
+    if(posY > 392 && posY < 519) {
+    int led1 = 3;
+    bitSet(reg3, led1);
+    updateShiftRegister();
+    }
+    if(posY > 519 && posY < 646) {
+    int led1 = 4;
+    bitSet(reg3, led1);
+    updateShiftRegister();
+    }
+    if(posY > 646 && posY < 773) {
+    int led1 = 5;
+    bitSet(reg3, led1);
+    updateShiftRegister();
+    }
+    if(posY > 773 && posY < 900) {
+    int led1 = 6;
+    bitSet(reg3, led1);
+    updateShiftRegister();
+    }
+    if(posY >=900) {
+    int led1 = 7;
+    bitSet(reg3, led1);
+    updateShiftRegister();
+    }
+    
+  }
+  if(posX > 300 && posX < 400) {
+    if(posY <= 127) {
+    int led1 = 0;
+    bitSet(reg4, led1);
+    updateShiftRegister();
+    }
+    if(posY > 127 && posY < 255) {
+    int led1 = 1;
+    bitSet(reg4, led1);
+    updateShiftRegister();
+    }
+    if(posY > 255 && posY < 392) {
+    int led1 = 2;
+    bitSet(reg4, led1);
+    updateShiftRegister();
+    }
+    if(posY > 392 && posY < 519) {
+    int led1 = 3;
+    bitSet(reg4, led1);
+    updateShiftRegister();
+    }
+    if(posY > 519 && posY < 646) {
+    int led1 = 4;
+    bitSet(reg4, led1);
+    updateShiftRegister();
+    }
+    if(posY > 646 && posY < 773) {
+    int led1 = 5;
+    bitSet(reg4, led1);
+    updateShiftRegister();
+    }
+    if(posY > 773 && posY < 900) {
+    int led1 = 6;
+    bitSet(reg4, led1);
+    updateShiftRegister();
+    }
+    if(posY >=900) {
+    int led1 = 7;
+    bitSet(reg4, led1);
+    updateShiftRegister();
+    }
+    
+  }
+  if(posX > 400 && posX < 500) {
+    if(posY <= 127) {
+    int led1 = 0;
+    bitSet(reg5, led1);
+    updateShiftRegister();
+    }
+    if(posY > 127 && posY < 255) {
+    int led1 = 1;
+    bitSet(reg5, led1);
+    updateShiftRegister();
+    }
+    if(posY > 255 && posY < 392) {
+    int led1 = 2;
+    bitSet(reg5, led1);
+    updateShiftRegister();
+    }
+    if(posY > 392 && posY < 519) {
+    int led1 = 3;
+    bitSet(reg5, led1);
+    updateShiftRegister();
+    }
+    if(posY > 519 && posY < 646) {
+    int led1 = 4;
+    bitSet(reg5, led1);
+    updateShiftRegister();
+    }
+    if(posY > 646 && posY < 773) {
+    int led1 = 5;
+    bitSet(reg5, led1);
+    updateShiftRegister();
+    }
+    if(posY > 773 && posY < 900) {
+    int led1 = 6;
+    bitSet(reg5, led1);
+    updateShiftRegister();
+    }
+    if(posY >=900) {
+    int led1 = 7;
+    bitSet(reg5, led1);
+    updateShiftRegister();
+    }
+    
+  }
+  if(posX > 500 && posX < 600) {
+    if(posY <= 127) {
+    int led1 = 0;
+    bitSet(reg6, led1);
+    updateShiftRegister();
+    }
+    if(posY > 127 && posY < 255) {
+    int led1 = 1;
+    bitSet(reg6, led1);
+    updateShiftRegister();
+    }
+    if(posY > 255 && posY < 392) {
+    int led1 = 2;
+    bitSet(reg6, led1);
+    updateShiftRegister();
+    }
+    if(posY > 392 && posY < 519) {
+    int led1 = 3;
+    bitSet(reg6, led1);
+    updateShiftRegister();
+    }
+    if(posY > 519 && posY < 646) {
+    int led1 = 4;
+    bitSet(reg6, led1);
+    updateShiftRegister();
+    }
+    if(posY > 646 && posY < 773) {
+    int led1 = 5;
+    bitSet(reg6, led1);
+    updateShiftRegister();
+    }
+    if(posY > 773 && posY < 900) {
+    int led1 = 6;
+    bitSet(reg6, led1);
+    updateShiftRegister();
+    }
+    if(posY >=900) {
+    int led1 = 7;
+    bitSet(reg6, led1);
+    updateShiftRegister();
+    }
+   
+  }
+  if(posX > 600 && posX < 700) {
+    if(posY <= 127) {
+    int led1 = 0;
+    bitSet(reg7, led1);
+    updateShiftRegister();
+    }
+    if(posY > 127 && posY < 255) {
+    int led1 = 1;
+    bitSet(reg7, led1);
+    updateShiftRegister();
+    }
+    if(posY > 255 && posY < 392) {
+    int led1 = 2;
+    bitSet(reg7, led1);
+    updateShiftRegister();
+    }
+    if(posY > 392 && posY < 519) {
+    int led1 = 3;
+    bitSet(reg7, led1);
+    updateShiftRegister();
+    }
+    if(posY > 519 && posY < 646) {
+    int led1 = 4;
+    bitSet(reg7, led1);
+    updateShiftRegister();
+    }
+    if(posY > 646 && posY < 773) {
+    int led1 = 5;
+    bitSet(reg7, led1);
+    updateShiftRegister();
+    }
+    if(posY > 773 && posY < 900) {
+    int led1 = 6;
+    bitSet(reg7, led1);
+    updateShiftRegister();
+    }
+    if(posY >=900) {
+    int led1 = 7;
+    bitSet(reg7, led1);
+    updateShiftRegister();
+    }
+    
+  }
+  if(posX > 700 && posX < 800) {
+    if(posY <= 127) {
+    int led1 = 0;
+    bitSet(reg8, led1);
+    updateShiftRegister();
+    }
+    if(posY > 127 && posY < 255) {
+    int led1 = 1;
+    bitSet(reg8, led1);
+    updateShiftRegister();
+    }
+    if(posY > 255 && posY < 392) {
+    int led1 = 2;
+    bitSet(reg8, led1);
+    updateShiftRegister();
+    }
+    if(posY > 392 && posY < 519) {
+    int led1 = 3;
+    bitSet(reg8, led1);
+    updateShiftRegister();
+    }
+    if(posY > 519 && posY < 646) {
+    int led1 = 4;
+    bitSet(reg8, led1);
+    updateShiftRegister();
+    }
+    if(posY > 646 && posY < 773) {
+    int led1 = 5;
+    bitSet(reg8, led1);
+    updateShiftRegister();
+    }
+    if(posY > 773 && posY < 900) {
+    int led1 = 6;
+    bitSet(reg8, led1);
+    updateShiftRegister();
+    }
+    if(posY >=900) {
+    int led1 = 7;
+    bitSet(reg8, led1);
+    updateShiftRegister();
+    }
+    
+  }
+  if(posX > 800 && posX < 900) {
+    if(posY <= 127) {
+    int led1 = 0;
+    bitSet(reg9, led1);
+    updateShiftRegister();
+    }
+    if(posY > 127 && posY < 255) {
+    int led1 = 1;
+    bitSet(reg9, led1);
+    updateShiftRegister();
+    }
+    if(posY > 255 && posY < 392) {
+    int led1 = 2;
+    bitSet(reg9, led1);
+    updateShiftRegister();
+    }
+    if(posY > 392 && posY < 519) {
+    int led1 = 3;
+    bitSet(reg9, led1);
+    updateShiftRegister();
+    }
+    if(posY > 519 && posY < 646) {
+    int led1 = 4;
+    bitSet(reg9, led1);
+    updateShiftRegister();
+    }
+    if(posY > 646 && posY < 773) {
+    int led1 = 5;
+    bitSet(reg9, led1);
+    updateShiftRegister();
+    }
+    if(posY > 773 && posY < 900) {
+    int led1 = 6;
+    bitSet(reg9, led1);
+    updateShiftRegister();
+    }
+    if(posY >=900) {
+    int led1 = 7;
+    bitSet(reg9, led1);
+    updateShiftRegister();
+    }
+    
+  }
+  if(posX > 900 && posX < 1024) {
+    if(posY <= 127) {
+    int led1 = 0;
+    bitSet(reg10, led1);
+    updateShiftRegister();
+    }
+    if(posY > 127 && posY < 255) {
+    int led1 = 1;
+    bitSet(reg10, led1);
+    updateShiftRegister();
+    }
+    if(posY > 255 && posY < 392) {
+    int led1 = 2;
+    bitSet(reg10, led1);
+    updateShiftRegister();
+    }
+    if(posY > 392 && posY < 519) {
+    int led1 = 3;
+    bitSet(reg10, led1);
+    updateShiftRegister();
+    }
+    if(posY > 519 && posY < 646) {
+    int led1 = 4;
+    bitSet(reg10, led1);
+    updateShiftRegister();
+    }
+    if(posY > 646 && posY < 773) {
+    int led1 = 5;
+    bitSet(reg10, led1);
+    updateShiftRegister();
+    }
+    if(posY > 773 && posY < 900) {
+    int led1 = 6;
+    bitSet(reg10, led1);
+    updateShiftRegister();
+    }
+    if(posY >=900) {
+    int led1 = 7;
+    bitSet(reg10, led1);
+    updateShiftRegister();
+    }
+    
+  }
+  
+  
+/*  
+  if(posX > 100 && posX < 200) {
+    int reg = 2;
+    bitSet(reg, led1);
+    updateShiftRegister();
+  }
+  if(posX > 200 && posX < 300) {
+    int reg = 3;
+    bitSet(reg, led1);
+    updateShiftRegister();
+  }
+  if(posX > 300 && posX < 400) {
+    int reg = 4;
+    bitSet(reg, led1);
+    updateShiftRegister();
+  }
+  if(posX > 400 && posX < 500) {
+    int reg = 5;
+    bitSet(reg, led1);
+    updateShiftRegister();
+  }
+  if(posX > 500 && posX < 600) {
+    int reg = 6;
+    bitSet(reg, led1);
+    updateShiftRegister();
+  }
+  if(posX > 600 && posX < 700) {
+    int reg = 7;
+    bitSet(reg, led1);
+    updateShiftRegister();
+  }
+  if(posX > 700 && posX < 800) {
+    int reg = 8;
+    bitSet(reg, led1);
+    updateShiftRegister();
+  }
+  if(posX > 800 && posX < 900) {
+    int reg = 9;
+    bitSet(reg, led1);
+    updateShiftRegister();
+  }
+  if(posX > 900 && posX < 1024) {
+    int reg = 10;
+    bitSet(reg, led1);
+    updateShiftRegister();
+  }
+*/
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  //********Y COORDINATE - CHOOSING LED'S 1 THROUGH 8 UNDER X SHIFT REGISTER*******
+  //Serial.println(analogRead(0));
+  /*
+  if(posY <= 127) {
+    int led1 = 0;
+    bitSet(reg1, led1);
+    updateShiftRegister();
+  }
+  if(posY > 127 && posY < 255) {
+    int led1 = 1;
+    bitSet(reg1, led1);
+    updateShiftRegister();
+  }
+  if(posY > 255 && posY < 392) {
+    int led1 = 2;
+    bitSet(reg1, led1);
+    updateShiftRegister();
+  }
+  if(posY > 392 && posY < 519) {
+    int led1 = 3;
+    bitSet(reg1, led1);
+    updateShiftRegister();
+  }
+  if(posY > 519 && posY < 646) {
+    int led1 = 4;
+    bitSet(reg1, led1);
+    updateShiftRegister();
+  }
+  if(posY > 646 && posY < 773) {
+    int led1 = 5;
+    bitSet(reg1, led1);
+    updateShiftRegister();
+  }
+  if(posY > 773 && posY < 900) {
+    int led1 = 6;
+    bitSet(reg1, led1);
+    updateShiftRegister();
+  }
+  if(posY >=900) {
+    int led1 = 7;
+    bitSet(reg1, led1);
+    updateShiftRegister();
+  }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+void updateShiftRegister() {
+   digitalWrite(latchPin, LOW);
+   shiftOut(dataPin, clockPin, LSBFIRST, reg1);
+   shiftOut(dataPin, clockPin, LSBFIRST, reg2);
+   shiftOut(dataPin, clockPin, LSBFIRST, reg3);
+   shiftOut(dataPin, clockPin, LSBFIRST, reg4);
+   shiftOut(dataPin, clockPin, LSBFIRST, reg5);
+   shiftOut(dataPin, clockPin, LSBFIRST, reg6);
+   shiftOut(dataPin, clockPin, LSBFIRST, reg7);
+   shiftOut(dataPin, clockPin, LSBFIRST, reg8);
+   shiftOut(dataPin, clockPin, LSBFIRST, reg9);
+   shiftOut(dataPin, clockPin, LSBFIRST, reg10);
+   digitalWrite(latchPin, HIGH);
+}
