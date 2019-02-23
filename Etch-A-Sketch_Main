@@ -1,0 +1,30 @@
+const int Potentiometer 1 = A0;
+const int Potentiometer 2 = A1;
+const int Potentiometer 3 = A2;
+
+
+//setup codes and integers to run once
+void setup() { 
+  Serial.begin(9600); // open a serial port
+    Serial.write(analogRead(A0)/4;
+    Serial.write(analogRead(A1)/4;
+    Serial.write(analogRead(A2)/4;
+    delay(1);
+  }
+
+}
+
+//main code to run repeatedly
+void loop() { 
+  int sensonVal = analogRead(Potentiometer 1);
+  Serial.print("Sensor Value: "); 
+  /*Serial.print sends information from Arduino to Computer.
+  This prints what I typed*/
+  Serial.print(sensorVal); //This will print out the value of the variable "sensorVal"
+  
+  float voltage = (sensorVal/1024.0) * 5.0; 
+  /*dividing sensorVal by 1024.0 and multiplying by 5 
+  will give you the voltage on the pin*/
+  Serial.print(", Volts:"); //print this out on the serial monitor
+  Serial.print(voltage);
+}
