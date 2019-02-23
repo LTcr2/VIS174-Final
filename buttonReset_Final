@@ -1,0 +1,66 @@
+/*
+Adafruit Arduino - Lesson 5. Serial Monitor
+*/
+
+int latchPin = 8;
+int clockPin = 12;
+int dataPin = 11;
+int buttonPin = 6;     // the number of the pushbutton pin
+
+byte leds1 = 0;  // shift register 1
+byte leds2 = 0;  // shift register 2
+int buttonState = 0;         // variable for reading the pushbutton status
+
+void setup() 
+{
+  pinMode(latchPin, OUTPUT);
+  pinMode(dataPin, OUTPUT);  
+  pinMode(clockPin, OUTPUT);
+  pinMode(buttonPin, INPUT);
+  updateShiftRegister();
+  Serial.begin(9600);
+  while (! Serial); // Wait untilSerial is ready - Leonardo
+  Serial.println("Enter LED Number 0 to 7 or 'x' to clear");
+}
+
+void loop() 
+{
+  if (Serial.available())
+  {
+    char ch = Serial.read();
+    if (ch >= '0' && ch <= '7')
+    {
+      int led1 = ch - '0';
+      int led2 = ch - '0';
+      bitSet(leds1, led1);
+      bitSet(leds2, led2);
+      updateShiftRegister();
+      Serial.print("Turned on LED ");
+      Serial.println(led1);
+      Serial.println(led2);
+    }
+    if (ch == 'x')
+    {
+      leds1 = 0;
+      leds2 = 0;
+      updateShiftRegister();
+      Serial.println("Cleared");
+    }
+  buttonState = digitalRead(buttonPin);
+  Serial.println(digitalRead(buttonPin));
+    if (buttonState == HIGH) {
+        leds1 = 0;
+        leds2 = 0;
+        updateShiftRegister();
+        Serial.println("Cleared");
+    }
+  }
+}
+
+void updateShiftRegister()
+{
+   digitalWrite(latchPin, LOW);
+   shiftOut(dataPin, clockPin, LSBFIRST, leds1);
+   shiftOut(dataPin, clockPin, LSBFIRST, leds2);
+   digitalWrite(latchPin, HIGH);
+}
